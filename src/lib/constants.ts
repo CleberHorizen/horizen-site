@@ -8,20 +8,13 @@ export const WHATSAPP = {
 };
 
 export function getWhatsAppSolarLink() {
-  const message = `Olá! Quero um *Orçamento Solar*.
-Posso enviar *foto da fatura*? (ou informe consumo médio kWh/12 meses).
-Objetivo: (kit gerador / projeto+homologação+instalação).
-Cidade/UF (se não estiver na fatura): ____`;
+  const message = `Olá! Quero um Orçamento de Energia Solar`;
   const text = encodeURIComponent(message);
   return `https://wa.me/${WHATSAPP.numberE164Digits}?text=${text}`;
 }
 
 export function getWhatsAppEngenhariaLink() {
-  const message = `Olá! Preciso de *Serviços de Engenharia*.
-Selecione o serviço: (BT/MT / Pivô (posto/cabine) / Automação / Consultoria).
-Cidade/UF: ____.
-Resumo do objetivo: ____.
-Se tiver, envie fotos/plantas.`;
+  const message = `Olá! Preciso de Serviços de Engenharia.`;
   const text = encodeURIComponent(message);
   return `https://wa.me/${WHATSAPP.numberE164Digits}?text=${text}`;
 }
