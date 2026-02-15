@@ -13,10 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Horizen Soluções | Energia Solar e Engenharia Elétrica",
+  title: "Energia Solar e Projetos Elétricos em Piraju e Região | Horizen Soluções",
   description:
-    "Empresa especializada em energia solar, projetos elétricos BT/MT, automação e soluções técnicas com alto padrão, segurança e conformidade normativa.",
-  keywords: [
+    "Empresa especializada em energia solar, projetos elétricos BT/MT, automação e soluções técnicas com alto padrão em Piraju/SP e região, segurança e conformidade normativa.",
+  metadataBase: new URL('https://www.horizen.com.br'),
+    keywords: [
     "energia solar",
     "projeto elétrico",
     "engenharia elétrica",
