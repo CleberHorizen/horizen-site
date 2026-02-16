@@ -53,14 +53,22 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section id="home" className="bg-zinc-50 py-16">
-        <div className="mx-auto max-w-6xl px-4">
+      <section
+        id="home"
+        className="relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#0E2433] to-black py-16 text-white"
+      >
+        {/* Grid técnico sutil */}
+        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,rgba(148,163,184,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.18)_1px,transparent_1px)] [background-size:80px_80px]" />
+        {/* Glow laranja discreto */}
+        <div className="pointer-events-none absolute -top-32 right-[-10%] h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.45),transparent_60%)] blur-3xl opacity-70" />
+
+        <div className="relative mx-auto max-w-6xl px-4">
           <div className="mx-auto max-w-3xl">
-            <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-5xl">
+            <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-5xl text-white">
               Energia solar e engenharia elétrica com alto padrão e segurança.
             </h1>
 
-            <p className="mt-4 text-sm leading-relaxed text-zinc-700 sm:text-base md:text-lg">
+            <p className="mt-4 text-sm leading-relaxed text-zinc-200 sm:text-base md:text-lg">
               Atendemos Piraju-SP e região com soluções completas em energia solar, automação, projetos elétricos de Baixa e Média Tensão e homologação na concessionária de energia elétrica — do estudo à entrega final.
             </p>
 
@@ -74,19 +82,22 @@ export default function Home() {
               <CtaWhatsApp
                 label="Outros Serviços de Engenharia"
                 variant="outline"
+                tone="dark"
                 fullWidth
                 href={getWhatsAppEngenhariaLink()}
               />
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-3 text-sm text-zinc-700 sm:grid-cols-2">
-              <div className="rounded-md border border-zinc-200 p-3">
-                <div className="font-semibold text-zinc-900">Projeto completo e homologação</div>
-                <div className="mt-1 text-zinc-600">Dimensionamento técnico, kit gerador, documentação, aprovação na concessionária, instalação e comissionamento do sistema.</div>
+            <div className="mt-6 grid grid-cols-1 gap-3 text-sm text-zinc-200 sm:grid-cols-2">
+              <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4 sm:p-5 backdrop-blur-[6px] shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                <div className="font-semibold text-white">Projeto completo e homologação</div>
+                <div className="mt-1 text-zinc-300">
+                  Dimensionamento técnico, kit gerador, documentação, aprovação na concessionária, instalação e comissionamento do sistema.
+                </div>
               </div>
-              <div className="rounded-md border border-zinc-200 p-3">
-                <div className="font-semibold text-zinc-900">Entrega com padrão</div>
-                <div className="mt-1 text-zinc-600">Projeto, documentação e execução alinhados.</div>
+              <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4 sm:p-5 backdrop-blur-[6px] shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                <div className="font-semibold text-white">Entrega com padrão</div>
+                <div className="mt-1 text-zinc-300">Projeto, documentação e execução alinhados.</div>
               </div>
             </div>
           </div>
@@ -174,20 +185,23 @@ export default function Home() {
       </Section>
 
       {/* Atuações Regionais */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-6xl px-4">
+      <section className="relative overflow-hidden bg-[#0E2433] py-16 text-white">
+        {/* Grid técnico sutil */}
+        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,rgba(148,163,184,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.18)_1px,transparent_1px)] [background-size:70px_70px]" />
+
+        <div className="relative mx-auto max-w-6xl px-4">
           <div className="max-w-4xl">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#1f1f1f]">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
               Atuação em Piraju e Região
             </h2>
 
-            <p className="mt-4 text-zinc-700">
+            <p className="mt-4 text-zinc-200">
               A Horizen Soluções atende Piraju/SP e cidades da região sudoeste paulista e norte do Paraná,
               oferecendo energia solar, projetos elétricos BT/MT, homologação junto à concessionária e soluções
               em automação com responsabilidade técnica e conformidade normativa.
             </p>
 
-            <div className="mt-8 grid grid-cols-2 gap-3 text-sm text-zinc-700 md:grid-cols-3">
+            <div className="mt-8 grid grid-cols-2 gap-3 text-sm text-zinc-200 md:grid-cols-3">
               <div>Piraju/SP</div>
               <div>Fartura/SP</div>
               <div>Timburi/SP</div>
@@ -216,9 +230,39 @@ export default function Home() {
               <div>Bandeirantes/PR</div>
             </div>
 
-            <p className="mt-8 text-sm text-zinc-600">
+            <p className="mt-8 text-sm text-zinc-300">
               Caso sua cidade não esteja listada, entre em contato. Avaliamos atendimento em toda a região.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#0E2433] to-black py-24">
+        {/* Grid técnico sutil */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,rgba(148,163,184,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.18)_1px,transparent_1px)] [background-size:80px_80px]" />
+        {/* Glow laranja discreto */}
+        <div className="pointer-events-none absolute -bottom-24 left-[-10%] h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.5),transparent_60%)] blur-3xl opacity-80" />
+
+        <div className="relative mx-auto max-w-6xl px-4">
+          <div className="max-w-2xl text-center mx-auto">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white">
+              Solicite seu Orçamento Solar
+            </h2>
+            <p className="mt-4 text-sm md:text-base text-zinc-200">
+              Envie a fatura ou seu consumo médio e retornamos com estudo e proposta.
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <div className="inline-flex scale-105 md:scale-110">
+                <CtaWhatsApp
+                  label="Falar com engenheiro"
+                  variant="primary"
+                  href={getWhatsAppSolarLink()}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
