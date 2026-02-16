@@ -285,7 +285,7 @@ export default function Home() {
 
                   <a
                     className="underline hover:text-zinc-900"
-                    href="www.linkedin.com/in/horizen-energia-solar-engenharia-civil-e-eletrica-581b86246"
+                    href="https://www.linkedin.com/in/horizen-energia-solar-engenharia-civil-e-eletrica-581b86246/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
