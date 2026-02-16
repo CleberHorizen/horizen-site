@@ -173,6 +173,56 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Atuações Regionais */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#1f1f1f]">
+              Atuação em Piraju e Região
+            </h2>
+
+            <p className="mt-4 text-zinc-700">
+              A Horizen Soluções atende Piraju/SP e cidades da região sudoeste paulista e norte do Paraná,
+              oferecendo energia solar, projetos elétricos BT/MT, homologação junto à concessionária e soluções
+              em automação com responsabilidade técnica e conformidade normativa.
+            </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 text-sm text-zinc-700 md:grid-cols-3">
+              <div>Piraju/SP</div>
+              <div>Fartura/SP</div>
+              <div>Timburi/SP</div>
+              <div>Sarutaia/SP</div>
+              <div>Tejupá/SP</div>
+              <div>Taguaí/SP</div>
+              <div>Taquarituba/SP</div>
+              <div>Itaí/SP</div>
+              <div>Paranapanema/SP</div>
+              <div>Holambra/SP</div>
+              <div>Cerqueira César/SP</div>
+              <div>Arandu/SP</div>
+              <div>Avaré/SP</div>
+              <div>Águas de Santa Bárbara/SP</div>
+              <div>Manduri/SP</div>
+              <div>Óleo/SP</div>
+              <div>Bernardino de Campos/SP</div>
+              <div>Santa Cruz do Rio Pardo/SP</div>
+              <div>Ipaussu/SP</div>
+              <div>Chavantes/SP</div>
+              <div>Canitar/SP</div>
+              <div>Ourinhos/SP</div>
+              <div>Ribeirão Claro/PR</div>
+              <div>Cambará/PR</div>
+              <div>Andirá/PR</div>
+              <div>Bandeirantes/PR</div>
+            </div>
+
+            <p className="mt-8 text-sm text-zinc-600">
+              Caso sua cidade não esteja listada, entre em contato. Avaliamos atendimento em toda a região.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer id="contato" className="border-t bg-white">
         <div className="mx-auto max-w-6xl px-4 py-10">
