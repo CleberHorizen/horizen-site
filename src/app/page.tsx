@@ -61,7 +61,7 @@ export default function Home() {
             </h1>
 
             <p className="mt-4 text-sm leading-relaxed text-zinc-700 sm:text-base md:text-lg">
-              Soluções completas com critério técnico e conformidade normativa — do estudo inicial à entrega final do sistema.
+              Atendemos Piraju-SP e região com soluções completas em energia solar, automação, projetos elétricos de Baixa e Média Tensão e homologação na concessionária de energia elétrica — do estudo à entrega final.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
