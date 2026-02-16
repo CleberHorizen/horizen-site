@@ -4,7 +4,7 @@ export const COMPANY = {
 };
 
 export const WHATSAPP = {
-  numberE164Digits: "5514996564946",
+  numberE164Digits: "5514997936983",
 };
 
 export function getWhatsAppSolarLink() {

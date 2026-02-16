@@ -46,7 +46,7 @@ export default function Home() {
             <CtaWhatsApp
               label="Falar com engenheiro"
               variant="outline"
-              href={`https://wa.me/5514996564946`}
+              href={`https://wa.me/5514997936983`}
             />
           </div>
         </div>
@@ -246,8 +246,8 @@ export default function Home() {
               <div className="text-sm font-semibold text-[#3A3A3A]">Contato</div>
               <ul className="mt-3 space-y-2 text-sm text-zinc-600">
                 <li>
-                  <a className="underline hover:text-zinc-900" href="https://wa.me/5514996564946" target="_blank" rel="noreferrer">
-                    WhatsApp: (14) 99656-4946
+                  <a className="underline hover:text-zinc-900" href="https://wa.me/5514997936983" target="_blank" rel="noreferrer">
+                    WhatsApp: (14) 99793-6983
                   </a>
                 </li>
                 <li>
