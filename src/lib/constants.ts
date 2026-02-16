@@ -8,7 +8,14 @@ export const WHATSAPP = {
 };
 
 export function getWhatsAppSolarLink() {
-  const message = `Olá! Quero um Orçamento de Energia Solar`;
+  const message = `Olá! Quero um ORÇAMENTO SOLAR.
+
+Para agilizar, responda com 1 ou 2:
+1) Vou enviar a foto da fatura agora.
+2) Não tenho fatura: meu consumo médio é ____ kWh/mês (ou quero suprir ____ kWh/mês).
+
+Se possível, informe também: cidade/UF e tipo de unidade (residencial/comercial/rural).
+`;
   const text = encodeURIComponent(message);
   return `https://wa.me/${WHATSAPP.numberE164Digits}?text=${text}`;
 }
