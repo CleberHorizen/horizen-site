@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Section from "@/components/Section";
 import CtaWhatsApp from "@/components/CtaWhatsApp";
+import ToolsHomeSection from "@/components/tools/ToolsHomeSection";
 import { COMPANY, getWhatsAppSolarLink, getWhatsAppEngenhariaLink } from "@/lib/constants";
 
 // IMPORTANTE: Coloque o arquivo logo.png em /public/logo.png
@@ -103,6 +104,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ToolsHomeSection />
 
       {/* Serviços */}
       <Section id="servicos" className="border-t bg-white">

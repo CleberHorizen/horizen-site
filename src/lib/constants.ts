@@ -7,6 +7,9 @@ export const WHATSAPP = {
   numberE164Digits: "5514997936983",
 };
 
+/** Número centralizado para ferramentas e CTAs de WhatsApp */
+export const WHATSAPP_NUMBER = WHATSAPP.numberE164Digits;
+
 export function getWhatsAppSolarLink() {
   const message = `Olá! Quero um ORÇAMENTO SOLAR.
 
