@@ -23,6 +23,7 @@ import {
   TARIFA_PADRAO,
 } from "@/lib/tools/consumption";
 import { formatCurrency, formatKwh, formatNumber } from "@/lib/tools/format";
+import { parseDecimalInput, parseIntInput } from "@/lib/tools/parseInput";
 import {
   buildWhatsAppLink,
   getConsumptionWhatsAppMessage,
@@ -58,7 +59,7 @@ const inputClass =
 const labelClass = "text-sm font-medium text-zinc-700";
 
 export default function ConsumptionCalculator() {
-  const [tariff, setTariff] = useState(TARIFA_PADRAO);
+  const [tariff, setTariff] = useState(String(TARIFA_PADRAO));
   const [equipmentType, setEquipmentType] = useState<EquipmentType>("common");
   const [items, setItems] = useState<EquipmentItem[]>([]);
   const [formError, setFormError] = useState<string | null>(null);
@@ -110,35 +111,57 @@ export default function ConsumptionCalculator() {
     if (preset) setCommonPower(String(preset.powerW));
   }
 
-  function validateTariff(): boolean {
-    if (tariff <= 0) {
-      setFormError("Informe uma tarifa maior que zero.");
-      return false;
+  function validateTariff(): number | null {
+    if (!tariff.trim()) {
+      setFormError("Informe a tarifa de energia.");
+      return null;
     }
-    return true;
+    const tariffValue = parseDecimalInput(tariff);
+    if (tariffValue <= 0) {
+      setFormError("Informe uma tarifa maior que zero.");
+      return null;
+    }
+    return tariffValue;
   }
 
   function addEquipment() {
     setFormError(null);
-    if (!validateTariff()) return;
+    const tariffValue = validateTariff();
+    if (tariffValue === null) return;
 
     if (equipmentType === "common") {
-      const power = parseFloat(commonPower);
-      const qty = parseInt(commonQuantity, 10);
-      const hours = parseFloat(commonHours);
-      const days = parseInt(commonDays, 10);
+      const power = parseDecimalInput(commonPower);
+      const qty = parseIntInput(commonQuantity);
+      const hours = parseDecimalInput(commonHours);
+      const days = parseIntInput(commonDays);
       const name = commonName.trim() || "Equipamento";
 
-      if (!power || power <= 0) {
+      if (!commonPower.trim()) {
+        setFormError("Informe a potência em watts.");
+        return;
+      }
+      if (power <= 0) {
         setFormError("Informe uma potência maior que zero.");
         return;
       }
-      if (!qty || qty < 1) {
+      if (!commonQuantity.trim()) {
+        setFormError("Informe a quantidade.");
+        return;
+      }
+      if (qty < 1) {
         setFormError("Quantidade deve ser pelo menos 1.");
+        return;
+      }
+      if (!commonHours.trim()) {
+        setFormError("Informe as horas por dia.");
         return;
       }
       if (hours < 0 || hours > 24) {
         setFormError("Horas por dia devem estar entre 0 e 24.");
+        return;
+      }
+      if (!commonDays.trim()) {
+        setFormError("Informe os dias por mês.");
         return;
       }
       if (days < 1 || days > 31) {
@@ -156,7 +179,7 @@ export default function ConsumptionCalculator() {
           typeLabel: TYPE_LABELS.common,
           quantity: qty,
           consumptionKwh: consumption,
-          monthlyCost: calcMonthlyCost(consumption, tariff),
+          monthlyCost: calcMonthlyCost(consumption, tariffValue),
         },
       ]);
       setCommonHours("");
@@ -164,17 +187,29 @@ export default function ConsumptionCalculator() {
     }
 
     if (equipmentType === "ac") {
-      const btu = parseInt(acBtu, 10);
-      const qty = parseInt(acQuantity, 10);
-      const hours = parseFloat(acHours);
-      const days = parseInt(acDays, 10);
+      const btu = parseIntInput(acBtu);
+      const qty = parseIntInput(acQuantity);
+      const hours = parseDecimalInput(acHours);
+      const days = parseIntInput(acDays);
 
-      if (!qty || qty < 1) {
+      if (!acQuantity.trim()) {
+        setFormError("Informe a quantidade.");
+        return;
+      }
+      if (qty < 1) {
         setFormError("Quantidade deve ser pelo menos 1.");
+        return;
+      }
+      if (!acHours.trim()) {
+        setFormError("Informe as horas por dia.");
         return;
       }
       if (hours < 0 || hours > 24) {
         setFormError("Horas por dia devem estar entre 0 e 24.");
+        return;
+      }
+      if (!acDays.trim()) {
+        setFormError("Informe os dias por mês.");
         return;
       }
       if (days < 1 || days > 31) {
@@ -192,22 +227,30 @@ export default function ConsumptionCalculator() {
           typeLabel: `${TYPE_LABELS.ac} (${AC_TECHNOLOGY_LABELS[acTech]})`,
           quantity: qty,
           consumptionKwh: consumption,
-          monthlyCost: calcMonthlyCost(consumption, tariff),
+          monthlyCost: calcMonthlyCost(consumption, tariffValue),
         },
       ]);
       setAcHours("");
       return;
     }
 
-    const consumptionVal = parseFloat(labeledConsumption);
-    const qty = parseInt(labeledQuantity, 10);
+    const consumptionVal = parseDecimalInput(labeledConsumption);
+    const qty = parseIntInput(labeledQuantity);
     const name = labeledName.trim() || "Equipamento";
 
-    if (!consumptionVal || consumptionVal <= 0) {
+    if (!labeledConsumption.trim()) {
+      setFormError("Informe o consumo em kWh/mês.");
+      return;
+    }
+    if (consumptionVal <= 0) {
       setFormError("Informe o consumo em kWh/mês maior que zero.");
       return;
     }
-    if (!qty || qty < 1) {
+    if (!labeledQuantity.trim()) {
+      setFormError("Informe a quantidade.");
+      return;
+    }
+    if (qty < 1) {
       setFormError("Quantidade deve ser pelo menos 1.");
       return;
     }
@@ -222,7 +265,7 @@ export default function ConsumptionCalculator() {
         typeLabel: TYPE_LABELS.labeled,
         quantity: qty,
         consumptionKwh: consumption,
-        monthlyCost: calcMonthlyCost(consumption, tariff),
+        monthlyCost: calcMonthlyCost(consumption, tariffValue),
       },
     ]);
     setLabeledConsumption("");
@@ -247,11 +290,10 @@ export default function ConsumptionCalculator() {
           </label>
           <input
             id="tariff"
-            type="number"
-            min="0.01"
-            step="0.01"
+            type="text"
+            inputMode="decimal"
             value={tariff}
-            onChange={(e) => setTariff(parseFloat(e.target.value) || 0)}
+            onChange={(e) => setTariff(e.target.value)}
             className={inputClass}
           />
           <p className="mt-2 text-xs text-zinc-500">
@@ -329,8 +371,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="commonPower"
-                    type="number"
-                    min="1"
+                    type="text"
+                    inputMode="decimal"
                     value={commonPower}
                     onChange={(e) => setCommonPower(e.target.value)}
                     className={inputClass}
@@ -342,8 +384,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="commonQty"
-                    type="number"
-                    min="1"
+                    type="text"
+                    inputMode="numeric"
                     value={commonQuantity}
                     onChange={(e) => setCommonQuantity(e.target.value)}
                     className={inputClass}
@@ -355,10 +397,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="commonHours"
-                    type="number"
-                    min="0"
-                    max="24"
-                    step="0.5"
+                    type="text"
+                    inputMode="decimal"
                     value={commonHours}
                     onChange={(e) => setCommonHours(e.target.value)}
                     className={inputClass}
@@ -370,9 +410,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="commonDays"
-                    type="number"
-                    min="1"
-                    max="31"
+                    type="text"
+                    inputMode="numeric"
                     value={commonDays}
                     onChange={(e) => setCommonDays(e.target.value)}
                     className={inputClass}
@@ -423,8 +462,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="acQty"
-                    type="number"
-                    min="1"
+                    type="text"
+                    inputMode="numeric"
                     value={acQuantity}
                     onChange={(e) => setAcQuantity(e.target.value)}
                     className={inputClass}
@@ -436,10 +475,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="acHours"
-                    type="number"
-                    min="0"
-                    max="24"
-                    step="0.5"
+                    type="text"
+                    inputMode="decimal"
                     value={acHours}
                     onChange={(e) => setAcHours(e.target.value)}
                     className={inputClass}
@@ -451,9 +488,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="acDays"
-                    type="number"
-                    min="1"
-                    max="31"
+                    type="text"
+                    inputMode="numeric"
                     value={acDays}
                     onChange={(e) => setAcDays(e.target.value)}
                     className={inputClass}
@@ -483,9 +519,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="labeledKwh"
-                    type="number"
-                    min="0.01"
-                    step="0.01"
+                    type="text"
+                    inputMode="decimal"
                     value={labeledConsumption}
                     onChange={(e) => setLabeledConsumption(e.target.value)}
                     className={inputClass}
@@ -497,8 +532,8 @@ export default function ConsumptionCalculator() {
                   </label>
                   <input
                     id="labeledQty"
-                    type="number"
-                    min="1"
+                    type="text"
+                    inputMode="numeric"
                     value={labeledQuantity}
                     onChange={(e) => setLabeledQuantity(e.target.value)}
                     className={inputClass}

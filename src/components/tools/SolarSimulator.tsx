@@ -7,6 +7,7 @@ import ToolHero from "@/components/tools/ToolHero";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import WhatsAppFloatingButton from "@/components/tools/WhatsAppFloatingButton";
 import { formatKwh, formatKwp, formatNumber } from "@/lib/tools/format";
+import { parseDecimalInput } from "@/lib/tools/parseInput";
 import {
   CONNECTION_LABELS,
   PROPERTY_LABELS,
@@ -40,7 +41,7 @@ export default function SolarSimulator() {
   const [consumptionMode, setConsumptionMode] = useState<ConsumptionInputMode>("kwh");
   const [averageConsumptionKwh, setAverageConsumptionKwh] = useState("");
   const [averageBillValue, setAverageBillValue] = useState("");
-  const [tariff, setTariff] = useState(TARIFA_PADRAO);
+  const [tariff, setTariff] = useState(String(TARIFA_PADRAO));
   const [connectionType, setConnectionType] = useState<ConnectionType>("bifasico");
   const [propertyType, setPropertyType] = useState<PropertyType>("residencial");
   const [formError, setFormError] = useState<string | null>(null);
@@ -52,13 +53,13 @@ export default function SolarSimulator() {
       consumptionMode,
       averageConsumptionKwh:
         consumptionMode === "kwh"
-          ? parseFloat(averageConsumptionKwh) || 0
+          ? parseDecimalInput(averageConsumptionKwh)
           : undefined,
       averageBillValue:
         consumptionMode === "bill"
-          ? parseFloat(averageBillValue) || 0
+          ? parseDecimalInput(averageBillValue)
           : undefined,
-      tariff,
+      tariff: parseDecimalInput(tariff),
       connectionType,
     });
   }, [
@@ -105,19 +106,31 @@ export default function SolarSimulator() {
       setFormError("Informe o estado (UF).");
       return;
     }
-    if (tariff <= 0) {
+    if (!tariff.trim()) {
+      setFormError("Informe a tarifa de energia.");
+      return;
+    }
+    if (parseDecimalInput(tariff) <= 0) {
       setFormError("Informe uma tarifa maior que zero.");
       return;
     }
     if (consumptionMode === "kwh") {
-      const kwh = parseFloat(averageConsumptionKwh);
-      if (!kwh || kwh <= 0) {
+      if (!averageConsumptionKwh.trim()) {
+        setFormError("Informe o consumo médio em kWh.");
+        return;
+      }
+      const kwh = parseDecimalInput(averageConsumptionKwh);
+      if (kwh <= 0) {
         setFormError("Informe o consumo médio em kWh maior que zero.");
         return;
       }
     } else {
-      const bill = parseFloat(averageBillValue);
-      if (!bill || bill <= 0) {
+      if (!averageBillValue.trim()) {
+        setFormError("Informe o valor médio da conta.");
+        return;
+      }
+      const bill = parseDecimalInput(averageBillValue);
+      if (bill <= 0) {
         setFormError("Informe o valor médio da conta maior que zero.");
         return;
       }
@@ -255,9 +268,8 @@ export default function SolarSimulator() {
                   </label>
                   <input
                     id="kwh"
-                    type="number"
-                    min="0.01"
-                    step="0.01"
+                    type="text"
+                    inputMode="decimal"
                     value={averageConsumptionKwh}
                     onChange={(e) => setAverageConsumptionKwh(e.target.value)}
                     className={inputClass}
@@ -270,9 +282,8 @@ export default function SolarSimulator() {
                   </label>
                   <input
                     id="bill"
-                    type="number"
-                    min="0.01"
-                    step="0.01"
+                    type="text"
+                    inputMode="decimal"
                     value={averageBillValue}
                     onChange={(e) => setAverageBillValue(e.target.value)}
                     className={inputClass}
@@ -285,11 +296,10 @@ export default function SolarSimulator() {
                 </label>
                 <input
                   id="tariff"
-                  type="number"
-                  min="0.01"
-                  step="0.01"
+                  type="text"
+                  inputMode="decimal"
                   value={tariff}
-                  onChange={(e) => setTariff(parseFloat(e.target.value) || 0)}
+                  onChange={(e) => setTariff(e.target.value)}
                   className={inputClass}
                 />
               </div>
